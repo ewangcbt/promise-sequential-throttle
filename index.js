@@ -41,6 +41,10 @@ PromiseThrottle.all = function (sequence, promiseFunction, throttle) {
             generator = function* () {
                 for (let i = 0; i < sequence.length; i++) yield sequence[i];
             }();
+        } else if (Number.isInteger(sequence)) {
+            generator = function* () {
+                for (let i = 0; i < sequence; i++) yield;
+            }();
         } else if (sequence.constructor && sequence.constructor.name === 'GeneratorFunction') {
             // generator function
             generator = sequence();
